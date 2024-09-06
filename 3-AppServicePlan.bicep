@@ -27,7 +27,7 @@ resource azbicepas1 'Microsoft.Web/sites@2021-01-15' = {
     'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/appServicePlan': 'Resource'
   }
   properties: {
-    serverFarmId: resourceId('Microsoft.Web/serverfarms', 'azbicepasp1')
+    serverFarmId: resourceId('Microsoft.Web/serverfarms', pAppServicePlanName)
   }
   dependsOn: [
     azbicepasp1
@@ -51,7 +51,3 @@ resource azbiceppas1setting 'Microsoft.Web/sites/config@2021-01-15' = {
     ]
   }
 } 
-
-
-//key: 76e83bc7-7cf9-414c-a5ff-240217fa3451
-

@@ -1,11 +1,15 @@
-param pLocation string = 'eastasia' 
-param pAppServicePlanName string = 'azbicepasp1' 
-param pAppServiceName string  = 'WebBicepApp1'
-param pAppServiceInsightsName string = 'WebBicepApp1insights'
+param pLocation string //= 'eastasia' 
+param pAppServicePlanName string //= 'azbicepasp1' 
+param pAppServiceName string  //= 'WebBicepApp1'
+param pAppServiceInsightsName string //= 'WebBicepApp1insights'
 
-param pSqlServerName string = 'azbicepsqlserver'
-param pSqlServerDatabaseName string = 'caseworx'
-param pSqlServerFirewallRuleName string = 'caseworxIpRule'
+param pSqlServerName string //= 'azbicepsqlserver'
+param pSqlServerDatabaseName string //= 'caseworx'
+param pSqlServerFirewallRuleName string //= 'caseworxIpRule'
+
+param pSqlServerAdminLogin string
+@secure()
+param pSqlServerAdminPassword string
 
 module AppServicePlan '3-AppServicePlan.bicep' = {
   name: 'myAppServicePlan'
@@ -32,5 +36,7 @@ module SQLDatabase '4-SQLServer.bicep' = {
     pSqlServerDatabaseName: pSqlServerDatabaseName
     pSqlServerFirewallRuleName: pSqlServerFirewallRuleName
     pLocation: pLocation
+    pSqlServerAdminLogin: pSqlServerAdminLogin
+    pSqlServerAdminPassword: pSqlServerAdminPassword
   }
 }

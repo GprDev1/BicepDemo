@@ -3,12 +3,16 @@ param pSqlServerDatabaseName string
 param pSqlServerFirewallRuleName string  
 param pLocation string 
 
+param pSqlServerAdminLogin string
+@secure()
+param pSqlServerAdminPassword string
+
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' ={
   name: pSqlServerName
   location: pLocation
   properties: {
-    administratorLogin: 'sqladmin'
-    administratorLoginPassword: 'P@ssw0rd1234'
+    administratorLogin: pSqlServerAdminLogin
+    administratorLoginPassword: pSqlServerAdminPassword
   }
 }
 resource sqlServerFirewallRules 'Microsoft.Sql/servers/firewallRules@2021-02-01-preview' = {
