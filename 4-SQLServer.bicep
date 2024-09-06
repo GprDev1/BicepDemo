@@ -7,6 +7,7 @@ param pSqlServerAdminLogin string
 @secure()
 param pSqlServerAdminPassword string
 
+
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' ={
   name: pSqlServerName
   location: pLocation

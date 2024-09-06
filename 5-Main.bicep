@@ -1,15 +1,26 @@
-param pLocation string //= 'eastasia' 
-param pAppServicePlanName string //= 'azbicepasp1' 
-param pAppServiceName string  //= 'WebBicepApp1'
-param pAppServiceInsightsName string //= 'WebBicepApp1insights'
 
-param pSqlServerName string //= 'azbicepsqlserver'
-param pSqlServerDatabaseName string //= 'caseworx'
-param pSqlServerFirewallRuleName string //= 'caseworxIpRule'
+param pEnv string
 
+param pLocation string
+param pAppServicePlanName string
+param pAppServiceName string
+param pAppServiceInsightsName string
+
+param pSqlServerName string
+param pSqlServerDatabaseName string
+param pSqlServerFirewallRuleName string
 param pSqlServerAdminLogin string
-@secure()
-param pSqlServerAdminPassword string
+
+@allowed(['S1', 'B1', 'B2', 'B3'])
+param pSkuname string = (pEnv == 'dev') ? 'S1' : 'B1'
+
+@minValue(1)
+@maxValue(10)
+param pSkucapacity int = (pEnv == 'dev') ? 1 : 2
+
+resource TestPraveenVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' existing  = {
+  name: 'test-praveen'
+}
 
 module AppServicePlan '3-AppServicePlan.bicep' = {
   name: 'myAppServicePlan'
@@ -18,6 +29,8 @@ module AppServicePlan '3-AppServicePlan.bicep' = {
     pAppServicePlanName: pAppServicePlanName
     pAppServiceName: pAppServiceName
     pInstrumentationKey: AppInsights.outputs.appInsightsKey 
+    pSkuname: pSkuname
+    pSkucapacity: pSkucapacity
   }
 }
 
@@ -37,6 +50,6 @@ module SQLDatabase '4-SQLServer.bicep' = {
     pSqlServerFirewallRuleName: pSqlServerFirewallRuleName
     pLocation: pLocation
     pSqlServerAdminLogin: pSqlServerAdminLogin
-    pSqlServerAdminPassword: pSqlServerAdminPassword
+    pSqlServerAdminPassword: TestPraveenVault.getSecret('sqlpassword')
   }
 }

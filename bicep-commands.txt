@@ -26,3 +26,5 @@ When enabledForTemplateDeployment is true, networkAcls.bypass must include "Azur
 P@ssw0rd123
 
 
+
+

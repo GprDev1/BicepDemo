@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "pEnv": {
+            "value": "dev" 
+        },
         "pLocation": {
             "value": "eastasia"  
         },
@@ -14,6 +17,12 @@
         "pAppServiceInsightsName": {
             "value": "WebBicep-dev-Appinsights"
         },
+        "pSkuname": {
+            "value": "S1" 
+        },
+        "pSkucapacity": {
+            "value": 1
+        },
         "pSqlServerName": {
             "value": "azbicepsql-dev-server" 
         },
@@ -25,14 +34,6 @@
         },
         "pSqlServerFirewallRuleName": {
             "value": "caseworxIp-dev-Rule" 
-        },
-        "pSqlServerAdminPassword": {
-            "reference": {
-                "keyVault": {
-                    "id": "/subscriptions/86be7427-3a04-40bd-8cba-5df26455b924/resourceGroups/azbi-dev/providers/Microsoft.KeyVault/vaults/test-prav"
-                },
-                "secretName": "sqlpassword"
-            }
         }
     }
 }

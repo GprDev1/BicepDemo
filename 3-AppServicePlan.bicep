@@ -1,21 +1,29 @@
-// param pLocation string //= 'westus' //resourceGroup().location
-// param pAppServicePlanName string // = 'azbicepasp1' 
-// param pAppServiceName string // = 'WebBicepApp1'
-// param pAppServiceInsightsName string // = 'WebBicepApp1insights'
-
 param pLocation string  
 param pAppServicePlanName string  
 param pAppServiceName string  
 param pInstrumentationKey string
+
+@description('''
+Please provide the SKU name for the App Service Plan
+  - S1
+  - B1
+  - B2
+  - B3
+''')
+@allowed(['S1', 'B1', 'B2', 'B3'])
+param pSkuname string 
+
+
+param pSkucapacity int = 1
 
 //Web App Service Plan
 resource azbicepasp1 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: pAppServicePlanName
   location: pLocation
   sku: {
-    name: 'S1'
+    name: pSkuname
     tier: 'Standard'
-    capacity: 1
+    capacity: pSkucapacity
   }
 }
 
