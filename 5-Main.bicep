@@ -18,6 +18,7 @@ param pSkuname string = (pEnv == 'dev') ? 'S1' : 'B1'
 @maxValue(10)
 param pSkucapacity int = (pEnv == 'dev') ? 1 : 2
 
+
 resource TestPraveenVault 'Microsoft.KeyVault/vaults@2024-04-01-preview' existing  = {
   name: 'test-praveen'
 }
@@ -31,6 +32,7 @@ module AppServicePlan '3-AppServicePlan.bicep' = {
     pInstrumentationKey: AppInsights.outputs.appInsightsKey 
     pSkuname: pSkuname
     pSkucapacity: pSkucapacity
+    pEnv: pEnv
   }
 }
 
